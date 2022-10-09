@@ -10,16 +10,31 @@ class QueueServiceTest {
     public void whenPostThenGetQueue() {
         QueueService queueService = new QueueService();
         String paramForPostMethod = "temperature=18";
-        /* Добавляем данные в очередь weather. Режим queue */
         queueService.process(
                 new Req("POST", "queue", "weather", paramForPostMethod)
         );
-        /* Забираем данные из очереди weather. Режим queue */
         Resp result = queueService.process(
                 new Req("GET", "queue", "weather", null)
         );
 
-      Assertions.assertEquals("temperature=18", result.text());
+        Assertions.assertEquals("temperature=18", result.text());
+
+    }
+
+    @Test
+    public void whenEmptyQueue() {
+        QueueService queueService = new QueueService();
+        String paramForPostMethod = "temperature=18";
+        queueService.process(
+                new Req("POST", "queue", "weather", paramForPostMethod)
+        );
+        queueService.process(
+                new Req("GET", "queue", "weather", null)
+        );
+        Resp result = queueService.process(
+                new Req("GET", "queue", "weather", null)
+        );
+        Assertions.assertEquals("204", result.status());
 
     }
 }
