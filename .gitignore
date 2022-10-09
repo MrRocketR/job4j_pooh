@@ -1,6 +1,4 @@
 # Default ignored files
 *.iml
-../job4j_pooh/target
 .idea
-# Project exclude paths
 /target/
