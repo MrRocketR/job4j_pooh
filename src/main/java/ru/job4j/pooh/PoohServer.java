@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PoohServer {
-    private final HashMap modes = new HashMap<>();
+    private final HashMap <String, Service> modes = new HashMap<>();
 
     public void start() {
         modes.put("queue", new QueueService());
@@ -33,9 +33,10 @@ public class PoohServer {
                         for (int i = 0; i < con.length; i++) {
                             System.out.println(i + " " + con[i]);
                         }*/
-                         var req = Req.of(content);
-                         System.out.println(req);
+                        var req = Req.of(content);
+                        System.out.println(req);
                         //var resp = modes.get(req.getPoohMode()).process(req);
+                        Service resp = modes.get(req.getPoohMode());
                         String ls = System.lineSeparator();
                        /* out.write(("HTTP/1.1 " + resp.status() + ls + ls).getBytes());
                         out.write((resp.text().concat(ls)).getBytes());*/

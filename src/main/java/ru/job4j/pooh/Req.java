@@ -1,5 +1,7 @@
 package ru.job4j.pooh;
 
+import java.util.Arrays;
+
 public class Req {
 
     private final String httpRequestType;
@@ -18,13 +20,15 @@ public class Req {
         if (content.contains("POST")) {
             String[] parse = content.split(" ");
             String[] type = parse[1].split("/");
-            String param = parse[7].substring(parse[7].indexOf("te"));
+            String[] p = parse[7].split(System.lineSeparator());
+            String param = p[p.length - 1];
             return new Req(parse[0], type[1], type[2], param);
         }
         String[] parse = content.split(" ");
         String[] type = parse[1].split("/");
-        //String param = parse[7].substring(parse[7].indexOf("te"));
-        return new Req(parse[0], type[1], type[2], null);
+        System.out.println(Arrays.asList(type));
+        String param = type.length < 4? "" : type[3];
+        return new Req(parse[0], type[1], type[2], param);
     }
 
     public String httpRequestType() {
