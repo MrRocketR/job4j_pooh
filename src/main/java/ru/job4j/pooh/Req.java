@@ -27,7 +27,7 @@ public class Req {
         String[] parse = content.split(" ");
         String[] type = parse[1].split("/");
         System.out.println(Arrays.asList(type));
-        String param = type.length < 4? "" : type[3];
+        String param = type.length < 4 ? "" : type[3];
         return new Req(parse[0], type[1], type[2], param);
     }
 

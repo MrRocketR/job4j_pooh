@@ -6,6 +6,7 @@ import java.util.concurrent.SynchronousQueue;
 
 public class QueueService implements Service {
     ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> queue = new ConcurrentHashMap<>();
+
     @Override
     public Resp process(Req req) {
         Req in = new Req(req.httpRequestType(), req.getPoohMode(),
@@ -18,9 +19,9 @@ public class QueueService implements Service {
             text = in.getParam();
             status = "200";
         }
-        if(req.httpRequestType().equals("GET")){
-           text = queue.get(req.getSourceName()).poll();
-           status = text == null ? "204" : "200";
+        if (req.httpRequestType().equals("GET")) {
+            text = queue.get(req.getSourceName()).poll();
+            status = text == null ? "204" : "200";
         }
 
         return new Resp(text, status);
