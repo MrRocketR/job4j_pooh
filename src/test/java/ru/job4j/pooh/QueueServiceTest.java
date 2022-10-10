@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 public class QueueServiceTest {
 
-
     @Test
     public void whenPostThenGetQueue() {
         QueueService queueService = new QueueService();
