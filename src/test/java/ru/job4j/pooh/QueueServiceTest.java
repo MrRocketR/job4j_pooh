@@ -35,7 +35,6 @@ public class QueueServiceTest {
         );
         Assertions.assertEquals("200", result.status());
 
-
     }
 
     @Test
