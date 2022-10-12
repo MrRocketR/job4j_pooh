@@ -22,7 +22,7 @@ public class QueueService implements Service {
             text = queue.getOrDefault(req.getSourceName(),
                     new ConcurrentLinkedQueue<>()).poll();
             text = text == null ? "" : text;
-            status = text == null ? "204" : "200";
+            status = text.equals("") ? "204" : "200";
         }
         return new Resp(text, status);
     }
