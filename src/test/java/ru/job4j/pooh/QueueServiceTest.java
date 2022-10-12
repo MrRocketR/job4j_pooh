@@ -33,7 +33,19 @@ public class QueueServiceTest {
         Resp result = queueService.process(
                 new Req("GET", "queue", "weather", null)
         );
-        Assertions.assertEquals("204", result.status());
+        Assertions.assertEquals("200", result.status());
+
 
     }
+
+    @Test
+    public void whenQueueNotAvailableThenNPE() {
+        QueueService queueService = new QueueService();
+
+        Resp resp = queueService.process(
+                new Req("GET", "queue", "weather", null)
+        );
+        Assertions.assertEquals("", (resp.text()));
+    }
+
 }

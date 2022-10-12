@@ -25,4 +25,18 @@ public class TopicServiceTest {
 
         Assertions.assertEquals("temperature=18", result1.text());
     }
+
+    @Test
+    public void whenTopic11() {
+        TopicService topicService = new TopicService();
+        String paramForSubscriber = "client407";
+        /*
+         * Впервые обращаемся к индивидуальной очереди. Данных еще нет. Должна вернуться пустая строка.
+         */
+        Resp result = topicService.process(
+                new Req("GET", "topic", "weather", paramForSubscriber)
+        );
+        Assertions.assertEquals("", result.text());
+    }
+
 }

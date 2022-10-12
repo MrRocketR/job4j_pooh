@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class TopicService implements Service {
 
-    private ConcurrentHashMap<String, ConcurrentHashMap
+    private final ConcurrentHashMap<String, ConcurrentHashMap
             <String, ConcurrentLinkedQueue<String>>> topicMap
             = new ConcurrentHashMap<>();
 
@@ -20,8 +20,8 @@ public class TopicService implements Service {
             topicMap.putIfAbsent(req.getSourceName(), new ConcurrentHashMap<>());
             topicMap.get(req.getSourceName()).putIfAbsent(req.getParam(),
                     new ConcurrentLinkedQueue<>());
-            text = topicMap.getOrDefault(req.getSourceName(), new ConcurrentHashMap<>())
-                    .getOrDefault(req.getParam(), new ConcurrentLinkedQueue<>()).poll();
+            text = topicMap.get(req.getSourceName()).get(req.getParam()).poll();
+            text = text == null ? "" : text;
             status = "200";
             return new Resp(text, status);
         } else if ("POST".equals(req.httpRequestType())) {
